@@ -1,0 +1,48 @@
+# decision tree regression
+"""regression template"""
+# polynomial regression
+# this is not a linear regressor build a bluffing detector
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeRegressor
+
+dataset = pd.read_csv('Position_Salaries.csv')
+X = dataset.iloc[:, 1:2].values
+y = dataset.iloc[:, 2].values
+# splitting the data set into training set and test set not needed due to the length of the dataset
+'''from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)'''
+
+'''feature scaling is not needed'''
+# fitting the regreesion model to the system
+
+regressor = DecisionTreeRegressor(random_state= 0) # 42 can also be used
+regressor.fit(X, y)
+# creating the regressor
+
+
+'''predicting bluff'''
+
+y_pred = regressor.predict([[6.5]])
+print(y_pred)
+
+
+# visiulaizing the polynomial regression model
+'''plt.scatter(X, y, color = 'red')
+plt.plot(X, regressor.predict(X),color = 'blue')
+plt.title("Truth or bluff(decision treeregression model")
+plt.xlabel("Position Level")
+plt.ylabel("Salary")
+plt.show()'''
+
+# visiulaizing the polynomial regression model for higher resolution
+# this model is to be used to predict the data accurately as the partitions are not visible on lower res
+X_grid = np.arange(min(X), max(X), 0.01)
+X_grid = X_grid.reshape((len(X_grid), 1))
+plt.scatter(X, y, color = 'red')
+plt.plot(X_grid, regressor.predict(X_grid), color = 'blue')
+plt.title('Truth or Bluff (Decision Tree Regression)')
+plt.xlabel('Position level')
+plt.ylabel('Salary')
+plt.show()
